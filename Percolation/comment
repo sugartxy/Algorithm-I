@@ -1,0 +1,12 @@
+出现的几个问题：
+1.导入asgl4.jar包，文件中import asgl4.jar
+2.需要增加virual top, virtual bottom.
+一开始没有增加这两个点，判断isfull的时候，就需要遍历第一排，来看是否和第一排某一个点connected。同理，判断percolated的时候，需要遍历最后一排。
+3.backwash问题的解决。
+问题来自于virtual bottom，所以需要建立两个uf,一个 有 virtual top和virtual bottom，用来判断percolated。另一个只有virtual top，用来判断isfull。
+4.bonus，memory问题。
+解决办法：
+将原方案中表示open状态的boolean数组改为byte数组，设定规则如下：初始化的默认值0代表blocked site，赋1代表open site，赋2代表与尾行相连的open site；
+每open一个site，如果位于尾行则赋2，否则赋1；
+分别对每个邻接site检测：如任何一方的root site对应byte值为2，将双方Union后的root site设为2。（root为Find()的返回值）
+此方案下，判断open只需要对应byte>0，判断full使用UF结果准确，判断percolates检测virtual top的root site对应byte是否为2。
