@@ -1,0 +1,2 @@
+出现的问题如下：
+1.Randomized queue的时候，思维局限在queue的形式，觉得删除一定是从起始位置进行删除的，所以使用了first与last两个zhis  
