@@ -1,2 +1,18 @@
 出现的问题如下：
-1.Randomized queue的时候，思维局限在queue的形式，觉得删除一定是从起始位置进行删除的，所以使用了first与last两个zhis  
+
+1.Randomized queue的时候，思维局限在queue的形式，觉得删除一定是从起始位置进行删除的，所以使用了first与last两个指针来定位开始和结束的位置。
+但事实上因为要求的是随机删除，所以我们可以与末位交换之后，删除末位。就不用再保留这两个指针了。
+
+2.Random Iterator,因为要求调用多个iterator的时候，他们之间需要相互独立。所以不能直接对random queue进行shuffle。
+一开始想到的方法是再重建一个object[]的临时数组，保存所有的item，在临时数组上进行shuffle。但是占用内存太大。
+改进的方法是，再建一个int[]的数组，保存index。在这个数组上进行shuffle，得到了已经打乱random的index。item还是保存在ranq原先的数组中。
+
+3.用args[0]还是用StdIn.readInt？
+args[0]是读取的命令行信息。如下
+java Permutation 3 < distinct.txt
+StdIn.read 则是读取的文本信息
+
+4.Test 3 (bonus): Check that maximum size of any or Deque or RandomizedQueue object created is equal to k
+一开始我们放入queue的是所有的String，这样对于这个memorycheck就没有办法通过。
+解决办法就是，提前对读取的String[]进行shuffle。只将打乱后的数组中前k个String放入queue。
+
